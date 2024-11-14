@@ -1,4 +1,3 @@
-
 require('dotenv').config();
 const express = require('express');
 const { setupBot } = require('./bot/bot');
@@ -8,7 +7,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // Настройка Telegram бота
-setupBot(app);
+setupBot();
 
 // Настройка веб-сервера
 setupWebServer(app);
