@@ -27,6 +27,14 @@ db.run(`
 
 function setupBot() {
     const bot = new Bot(process.env.TELEGRAM_BOT_TOKEN);
+
+    // Настройка Webhook
+    const WEBHOOK_PATH = `/webhook/${bot.token}`;
+    app.use(bot.webhookCallback(WEBHOOK_PATH));
+
+    bot.api.setWebhook(`${process.env.RENDER_EXTERNAL_URL}${WEBHOOK_PATH}`)
+        .then(() => console.log('Webhook успешно установлен'))
+        .catch(err => console.error('Ошибка установки Webhook:', err));
     // Команда /start для приветствия
     //bot.command('unhfguhdfughduhfguhdujfgd8juguhduhjfgd', (ctx) => {
     //    ctx.reply('sosi huy');
@@ -213,7 +221,7 @@ responseText = `Someone offered <b>💎${amountInt} (~ $${resultPrice.toFixed(2)
     bot.catch(err => console.error('Bot encountered an error:', err));
 
     // Запуск бота
-    bot.start();
+    // bot.start() заменён настройкой Webhook
     console.log('Telegram bot is running');
 }
 
