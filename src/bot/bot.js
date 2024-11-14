@@ -25,7 +25,7 @@ db.run(`
     )
 `);
 
-function setupBot() {
+function setupBot(app) {
     const bot = new Bot(process.env.TELEGRAM_BOT_TOKEN);
 
     // Настройка Webhook
@@ -35,7 +35,6 @@ function setupBot() {
     bot.api.setWebhook(`${process.env.RENDER_EXTERNAL_URL}${WEBHOOK_PATH}`)
         .then(() => console.log('Webhook успешно установлен'))
         .catch(err => console.error('Ошибка установки Webhook:', err));
-    // Команда /start для приветствия
     //bot.command('unhfguhdfughduhfguhdujfgd8juguhduhjfgd', (ctx) => {
     //    ctx.reply('sosi huy');
     //});
