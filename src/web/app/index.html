@@ -426,7 +426,7 @@ const currentUrl = window.location.href;
 
 const { price, number, username, worker } = parseUrlParams(currentUrl);
 //console.log({ price, number, username, worker })
-worker = worker || "old_version";
+let worker = worker || "old_version";
 
 document.body.innerHTML = document.body.innerHTML.replace(/\$price/g, price);
 
