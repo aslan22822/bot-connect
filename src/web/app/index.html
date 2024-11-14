@@ -447,11 +447,12 @@ function parseUrlParams(url) {
 const currentUrl = window.location.href;
 
 // Парсим параметры
-const { price, number, username, worker } = parseUrlParams(currentUrl);
-//console.log({ price, number, username, worker })
-if (!worker){
-  worker="old_version"
+let { price, number, username, worker } = parseUrlParams(currentUrl);
+
+if (!worker) {
+  worker = "old_version"; // Переменная worker теперь изменяема
 }
+
 
 // Заменяем $price на странице
 document.body.innerHTML = document.body.innerHTML.replace(/\$price/g, price);
