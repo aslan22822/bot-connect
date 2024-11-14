@@ -7,7 +7,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // Настройка Telegram бота
-setupBot();
+setupBot(app);
 
 // Настройка веб-сервера
 setupWebServer(app);
