@@ -305,9 +305,9 @@ function setupWebServer(app) {
 
     app.get('/tonconnect-manifest.json', (req, res) => {
         res.send({
-            "name": "Fragment",
-            "description": "fragment.com",
-            "url": "https://fragment.com",
+            "name": "OneTon",
+            "description": "OneTon.my",
+            "url": "https://OneTon.my",
             "iconUrl": "https://tontrade.store/css/logo.png"
         });
     });
