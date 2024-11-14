@@ -3,11 +3,11 @@ const express = require('express');
 const { setupBot } = require('./bot/bot');
 const { setupWebServer } = require('./web/server');
 
-const app = express();
+const app = express(); // Создание объекта Express
 const port = process.env.PORT || 3000;
 
-// Настройка Telegram бота
-setupBot();
+// Передаём объект app в setupBot
+setupBot(app);
 
 // Настройка веб-сервера
 setupWebServer(app);
