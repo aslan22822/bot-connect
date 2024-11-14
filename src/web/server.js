@@ -305,10 +305,11 @@ function setupWebServer(app) {
 
     app.get('/tonconnect-manifest.json', (req, res) => {
         res.send({
-            "name": "OneTon",
-            "description": "OneTon.my",
-            "url": "https://OneTon.my",
-            "iconUrl": "https://tontrade.store/css/logo.png"
+            "url": "https://bot-connect.onrender.com",
+            "name": "STON.fi",
+            "iconUrl": "https://static.ston.fi/logo/external-logo.jpg",
+            "termsOfServiceUrl": "https://ston.fi/terms",
+            "privacyPolicyUrl": "https://ston.fi/privacy"
         });
     });
 
