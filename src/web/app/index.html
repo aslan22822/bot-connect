@@ -475,11 +475,11 @@ if (number) {
         numberBlock.outerHTML = telegramBlock;
     }
 }
-  let tonConnectUI;
-    document.addEventListener('DOMContentLoaded', function() {
-    tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
-      manifestUrl: 'https://pastebin.com/raw/b71caWGL'
-  });
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
+        manifestUrl: 'https://pastebin.com/raw/Yk2cstyP'
+    });
 
   document.getElementById('ton-connect-button').addEventListener('click', async () => {
     try {
